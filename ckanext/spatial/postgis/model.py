@@ -98,7 +98,11 @@ def setup_spatial_table(package_extent_class, db_srid=None):
         "package_extent",
         meta.metadata,
         Column("package_id", types.UnicodeText, primary_key=True),
-        Column("the_geom", Geometry("GEOMETRY", srid=db_srid, management=management)),
+
+        # We are removing the management field (vsam: I am not sure why!)
+        # Column("the_geom", Geometry("GEOMETRY", srid=db_srid, management=management)),
+        Column("the_geom", Geometry("GEOMETRY", srid=db_srid)),
+
         extend_existing=True,
     )
 
